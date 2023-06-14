@@ -5,20 +5,19 @@
 <script>
 export default {
 	name: "App",
-	components: {},
+	components: {}
 };
 </script>
 
 <style>
-body{
-  margin: 0;
+body {
+	margin: 0;
 }
 #app {
-  height: 100vh;
-  width: 100vw;
+	height: 100vh;
+	width: 100vw;
 	font-family: Fira Code, Helvetica, Arial, sans-serif;
-	color: #2c3e50;
-  padding: 0;
-  margin: 0;
+	padding: 0;
+	margin: 0;
 }
 </style>
