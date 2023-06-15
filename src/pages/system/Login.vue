@@ -1,9 +1,7 @@
 <template>
 	<div id="login_app">
 		<div>
-            <svg>
-                <use xlink:href="#login_dh"></use>
-            </svg>
+			<svg-icon icon-class="login_dh"></svg-icon>
         </div>
 		<div class="login_form">
 			<svg>
@@ -72,7 +70,9 @@
 </template>
 
 <script>
+import SvgIcon from '@/components/SvgIcon.vue';
 export default {
+  components: { SvgIcon },
 	name: "login-u",
 	data() {
 		return {
@@ -90,7 +90,7 @@ export default {
 
 <style scoped>
 #login_app {
-	background: url("../../assets/login_bg.png") no-repeat;
+	background: url("../../assets/img/login_bg.png") no-repeat;
 	background-size: cover;
 	width: 100vw;
 	height: 100vh;
@@ -156,7 +156,7 @@ export default {
 	transform: translate(170%) translateY(-50%);
 	font-size: 12px;
 	background-color: #fff;
-	padding: 5px;
+	padding: 0px 10px 0 10px;
 }
 .other_way_btns {
 	display: flex;
