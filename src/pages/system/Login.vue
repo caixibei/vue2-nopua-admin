@@ -1,12 +1,9 @@
 <template>
 	<div id="login_app">
 		<div>
-			<svg-icon icon-class="login_dh"></svg-icon>
+			<svg-icon :icon-name="login_dh"></svg-icon>
         </div>
 		<div class="login_form">
-			<svg>
-                <use xlnik:href="#logo"></use>
-            </svg>
 			<div class="login_form_title">nopua</div>
 			<el-form :label-position="labelPosition" :model="formLabelAlign">
 				<el-form-item>
