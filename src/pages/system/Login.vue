@@ -1,8 +1,14 @@
 <template>
 	<div id="login_app">
-		<div><img src="../../assets/login_dh.svg" /></div>
+		<div>
+            <svg>
+                <use xlink:href="#login_dh"></use>
+            </svg>
+        </div>
 		<div class="login_form">
-			<img class="logo_login" src="../../assets/logo.svg" />
+			<svg>
+                <use xlnik:href="#logo"></use>
+            </svg>
 			<div class="login_form_title">nopua</div>
 			<el-form :label-position="labelPosition" :model="formLabelAlign">
 				<el-form-item>
@@ -58,10 +64,7 @@
 					<div class="linear_line"></div>
 				</el-form-item>
 				<el-form-item class="other_way_btns">
-					<el-button size="small"> </el-button>
-					<el-button size="small"> </el-button>
-					<el-button size="small"> </el-button>
-					<el-button size="small"> </el-button>
+					
 				</el-form-item>
 			</el-form>
 		</div>
