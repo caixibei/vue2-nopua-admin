@@ -1,5 +1,5 @@
 <template>
-    <svg :class="getIconClass" aria-hidden="true">
+    <svg :class="getIconClass" aria-hidden="true" :viewBox="viewBox">
         <use :xlink:href="getIconName"/>
     </svg>
 </template>
@@ -14,7 +14,13 @@ export default {
         },
         iconClass: {
             type: String,
-            default: ''
+            default: '',
+            required:false
+        },
+        viewBox:{
+            type:String,
+            default:'0,0,1920,1080',
+            required:false
         }
     },
     computed: {
@@ -23,7 +29,7 @@ export default {
         },
         getIconClass() {
             if (this.iconClass) {
-                return 'svg-icon ' + this.iconClass
+                return 'svg-icon-' + this.iconClass
             } else {
                 return 'svg-icon'
             }
@@ -36,6 +42,8 @@ export default {
 .svg-icon {
     fill: currentColor;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 </style>
 

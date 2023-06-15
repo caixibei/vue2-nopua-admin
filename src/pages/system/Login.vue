@@ -1,8 +1,8 @@
 <template>
 	<div id="login_app">
 		<div>
-			<svg-icon :icon-name="login_dh"></svg-icon>
-        </div>
+			<svg-icon icon-name="login_dh" icon-class="login_dh"></svg-icon>
+		</div>
 		<div class="login_form">
 			<div class="login_form_title">nopua</div>
 			<el-form :label-position="labelPosition" :model="formLabelAlign">
@@ -58,18 +58,16 @@
 				<el-form-item>
 					<div class="linear_line"></div>
 				</el-form-item>
-				<el-form-item class="other_way_btns">
-					
-				</el-form-item>
+				<el-form-item class="other_way_btns"> </el-form-item>
 			</el-form>
 		</div>
 	</div>
 </template>
 
 <script>
-import SvgIcon from '@/components/SvgIcon.vue';
+import SvgIcon from "@/components/SvgIcon.vue";
 export default {
-  components: { SvgIcon },
+	components: { SvgIcon },
 	name: "login-u",
 	data() {
 		return {
@@ -159,5 +157,8 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+.svg-icon-login_dh{
+	width:550px;
 }
 </style>
