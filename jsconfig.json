@@ -1,8 +1,10 @@
 {
+  "allowJs":true,
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
     "baseUrl": "./",
+    
     "moduleResolution": "node",
     "paths": {
       "@/*": [
@@ -15,5 +17,6 @@
       "dom.iterable",
       "scripthost"
     ]
-  }
+  },
+  
 }
