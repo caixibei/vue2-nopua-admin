@@ -40,21 +40,21 @@ export default {
 		});
 	},
 	methods: {
+		/**
+		 * get random "RGB" colors
+		 */
 		randomColor: function () {
 			var r = Math.floor(Math.random() * 256);
 			var g = Math.floor(Math.random() * 256);
 			var b = Math.floor(Math.random() * 256);
 			return "rgb(" + r + "," + g + "," + b + ")";
 		},
-		throttleDraw: _.throttle(
-			function () {
-				let _this = this;
-				_this.draw([]);
-			},
-			3000,
-			{ leading: false }
-		),
-		draw: function (show_num) {
+		/**
+		 * generate a captcha of length ${digit}
+		 * @param {array} show_num
+		 * @param {number} digit
+		 */
+		draw: function (show_num, digit) {
 			let _this = this;
 			_this.codeText = "";
 			var canvas_width = _this.canvasWidth;
@@ -67,14 +67,18 @@ export default {
 				"a,b,c,d,e,f,g,h,i,j,k,m,n,p,q,r,s,t,u,v,w,x,y,z,A,B,C,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0";
 			var aCode = sCode.split(",");
 			var aLength = aCode.length;
-			// 验证码文本内容
-			for (var i = 0; i < 4; i++) {
+			// captcha text content
+			for (var i = 0; i < digit; i++) {
 				var j = Math.floor(Math.random() * aLength);
-				var deg = Math.random() - 0.5; //产生一个随机弧度
-				var txt = aCode[j]; //得到随机的一个内容
+                //generate a random radian
+				var deg = Math.random() - 0.5;
+                //get a random text content of length 1
+				var txt = aCode[j];
 				show_num[i] = txt.toLowerCase();
-				var x = 10 + i * 20; //文字在canvas上的x坐标
-				var y = 20 + Math.random() * 8; //文字在canvas上的y坐标
+                //the x-coordinate of the text on the canvas
+				var x = 10 + i * 20;
+                //the y-coordinate of the text on the canvas
+				var y = 20 + Math.random() * 8;
 				context.font = "bold 23px Fira Code,STSong";
 				context.translate(x, y);
 				context.rotate(deg);
@@ -84,7 +88,7 @@ export default {
 				context.translate(-x, -y);
 				_this.codeText += "" + txt;
 			}
-			//验证码上显示线条
+			// a line appears on the verification code
 			for (let i = 0; i <= 5; i++) {
 				context.strokeStyle = this.randomColor();
 				context.beginPath();
@@ -98,7 +102,7 @@ export default {
 				);
 				context.stroke();
 			}
-			//验证码上显示小点
+			// a small dot appears on the verification code
 			for (let i = 0; i <= 30; i++) {
 				context.strokeStyle = this.randomColor();
 				context.beginPath();
@@ -110,6 +114,19 @@ export default {
 			}
 			_this.$emit("draw-code", _this.codeText);
 		},
+        /**
+         * The verification code generation is throttled, 
+         * and the verification code generation function 
+         * is called only once within a certain time range
+         */
+		throttleDraw: _.throttle(
+			function () {
+				let _this = this;
+				_this.draw([], 4);
+			},
+			3000,
+			{ leading: true, trailing: false }
+		),
 	},
 };
 </script>
