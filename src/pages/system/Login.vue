@@ -5,7 +5,7 @@
 		</div>
 		<div class="login_form">
 			<svg-icon icon-name="logo" icon-class="logo"></svg-icon>
-			<div class="login_form_title">nopua</div>
+			<div class="login_form_title">nopua-admin</div>
 			<el-form :model="formData" :rules="formRules" ref="loginForm" status-icon>
 				<el-form-item prop="account">
 					<el-input
