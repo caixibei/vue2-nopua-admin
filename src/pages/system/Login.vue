@@ -39,7 +39,12 @@
 						placeholder="验证码"
 					>
 						<template slot="append">
-							<code-canvas canvas-id="validate_code" canvas-width="100" canvas-height="32" @draw-code="validate_code = $event"></code-canvas>
+							<code-canvas
+								canvas-id="validate_code"
+								canvas-width="100"
+								canvas-height="32"
+								@draw-code="validate_code = $event"
+							></code-canvas>
 						</template>
 					</el-input>
 				</el-form-item>
@@ -93,7 +98,7 @@
 import SvgIcon from "@/components/SvgIcon.vue";
 import CodeCanvas from "@/components/CodeCanvas.vue";
 export default {
-	components: { SvgIcon,CodeCanvas },
+	components: { SvgIcon, CodeCanvas },
 	name: "login-u",
 	data() {
 		// 账号校验
@@ -124,7 +129,7 @@ export default {
 			}
 		};
 		return {
-			validate_code:'',
+			validate_code: "",
 			// 表单数据
 			formData: {
 				account: "",
@@ -143,12 +148,36 @@ export default {
 			},
 		};
 	},
+	mounted() {
+		this.notice()
+	},
 	methods: {
-		login(refName) {
-			let _this = this
+		/**
+		 * 站点通知消息
+		 */
+		notice: function () {
+			const cfgtmp = {
+				icon: "https://img1.imgtp.com/2023/06/16/25EpErei.svg",
+				body: `源码地址：https://github.com/caixibei/vue2-nopua-admin (前台服务) \t\n https://github.com/caixibei/nopua-server （后台服务）`,
+				image: "https://img1.imgtp.com/2023/06/16/TZQohVdJ.svg",
+			};
+			const notice = new Notification("温馨提示", cfgtmp);
+			var permission = window.Notification.permission;
+			if (permission != "granted") {
+				Notification.requestPermission();
+			} else {
+				notice.onshow();
+			}
+		},
+		/**
+		 * 登录事件
+		 * @param {string} refName 
+		 */
+		login: function (refName) {
+			let _this = this;
 			_this.$refs[refName].validate((valid) => {
 				if (valid) {
-					alert('logined')
+					alert("logined");
 				} else {
 					return false;
 				}
