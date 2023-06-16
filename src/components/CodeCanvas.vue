@@ -124,7 +124,7 @@ export default {
 				let _this = this;
 				_this.draw([], 4);
 			},
-			3000,
+			1000,
 			{ leading: true, trailing: false }
 		),
 	},
