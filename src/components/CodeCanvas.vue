@@ -39,7 +39,7 @@ export default {
         let _ = require('loadsh')
         _this.$nextTick(function(){
             _this.draw([]);
-            _.debounce(_this.draw,60000)
+            _.debounce(_this.draw,1000)
         });
     },
 	methods: {
