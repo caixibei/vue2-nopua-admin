@@ -6,48 +6,59 @@
 		<div class="login_form">
 			<svg-icon icon-name="logo" icon-class="logo"></svg-icon>
 			<div class="login_form_title">nopua</div>
-			<el-form :label-position="labelPosition" :model="formLabelAlign">
-				<el-form-item>
+			<el-form :model="formData" :rules="formRules" ref="loginForm" status-icon>
+				<el-form-item prop="account">
 					<el-input
 						type="text"
 						size="medium"
 						clearable
-						v-model="formLabelAlign.name"
+						v-model="formData.account"
 						prefix-icon="el-icon-user-solid"
 						placeholder="账号"
 					></el-input>
 				</el-form-item>
-				<el-form-item>
+				<el-form-item prop="password">
 					<el-input
 						type="password"
 						size="medium"
 						clearable
 						show-password
-						v-model="formLabelAlign.name"
+						v-model="formData.password"
 						prefix-icon="el-icon-lock"
 						placeholder="密码"
 					></el-input>
 				</el-form-item>
-				<el-form-item>
+				<el-form-item prop="validateCode">
 					<el-input
 						type="text"
 						size="medium"
 						clearable
-						v-model="formLabelAlign.name"
+						v-model="formData.validateCode"
 						prefix-icon="el-icon-key"
+						maxlength="4"
 						placeholder="验证码"
 					>
-						<template slot="append">3723</template>
+						<template slot="append">
+							<div class="validate_code">
+								3248
+							</div>
+						</template>
 					</el-input>
 				</el-form-item>
 				<el-form-item class="login_forget">
-					<el-checkbox v-model="checked">记住密码</el-checkbox>
+					<el-checkbox v-model="formData.rememberPassword"
+						>记住密码</el-checkbox
+					>
 					<el-link type="primary" class="forget_link" :underline="false"
 						>忘记密码？</el-link
 					>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" size="small" class="login_btn"
+					<el-button
+						type="primary"
+						size="small"
+						class="login_btn"
+						@click="login('loginForm')"
 						>登录</el-button
 					>
 				</el-form-item>
@@ -86,15 +97,62 @@ export default {
 	components: { SvgIcon },
 	name: "login-u",
 	data() {
-		return {
-			labelPosition: "left",
-			formLabelAlign: {
-				name: "",
-				region: "",
-				type: "",
-			},
-			checked: false,
+		// 账号校验
+		const accountValidation = (rule, value, fn) => {
+			const emialPattern =
+				/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			const qqEmailPattern = /^[A-Za-z0-9\u4e00-\u9fa5]+@qq.com$/;
+			if (value === "") {
+				fn(new Error("请输入账号"));
+			} else if (!emialPattern.test(value)) {
+				fn(new Error("账号格式为邮箱格式"));
+			} else if (!qqEmailPattern.test(value)) {
+				fn(new Error("仅支持QQ邮箱登录"));
+			} else {
+				fn();
+			}
 		};
+		// 密码校验
+		const passwordValidation = (rule, value, fn) => {
+			const passwordValidation =
+				/^.*(?=.{8,18})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
+			if (value === "") {
+				fn(new Error("请输入密码"));
+			} else if (!passwordValidation.test(value)) {
+				fn(new Error("密码格式应为8-18位数字、大小写字母、特殊符号的组合"));
+			} else {
+				fn();
+			}
+		};
+		return {
+			// 表单数据
+			formData: {
+				account: "",
+				password: "",
+				validateCode: "",
+				rememberPassword: false,
+			},
+			// 表单规则校验
+			formRules: {
+				account: [{ validator: accountValidation, trigger: "blur" }],
+				password: [{ validator: passwordValidation, trigger: "blur" }],
+				validateCode: [
+					{ required: true, message: "请输入验证码", trigger: "blur" },
+					{ min: 4, max: 4, message: "请输入4位验证码", trigger: "blur" },
+				],
+			},
+		};
+	},
+	methods: {
+		login(refName) {
+			this.$refs[refName].validate((valid) => {
+				if (valid) {
+					alert("submit!");
+				} else {
+					return false;
+				}
+			});
+		},
 	},
 };
 </script>
@@ -155,7 +213,7 @@ export default {
 	margin-left: 5%;
 }
 .login_form .el-form-item {
-	margin-bottom: 10px;
+	margin-bottom: 18px;
 }
 .linear_line .el-divider__text {
 	color: rgba(0, 0, 0, 0.3);
@@ -189,6 +247,30 @@ export default {
 .svg-icon-alipay_icon:hover {
 	color: #60a5fa;
 }
+
+.login_form:deep(.el-input-group__append) {
+	padding: 0;
+	cursor: pointer;
+}
+
+.validate_code{
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.login_form:deep(.el-icon-circle-check) {
+	color: #409eff;
+}
+
+/* 深度选择器（vue3已废弃） */
+/* .login_form >>> .el-icon-circle-check{
+	color:#409EFF;
+}
+.login_form /deep/ .el-icon-circle-check{
+	color:#409EFF;
+} */
 
 /* 适配移动设备-手机端 */
 @media (min-width: 320px) and (max-width: 480px) {
