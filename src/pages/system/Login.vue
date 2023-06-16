@@ -39,7 +39,7 @@
 						placeholder="验证码"
 					>
 						<template slot="append">
-							<code-canvas canvas-id="validate_code" canvas-width="100" canvas-height="32"></code-canvas>
+							<code-canvas canvas-id="validate_code" canvas-width="100" canvas-height="32" @draw-code="validate_code = $event"></code-canvas>
 						</template>
 					</el-input>
 				</el-form-item>
@@ -124,6 +124,7 @@ export default {
 			}
 		};
 		return {
+			validate_code:'',
 			// 表单数据
 			formData: {
 				account: "",
@@ -144,9 +145,10 @@ export default {
 	},
 	methods: {
 		login(refName) {
-			this.$refs[refName].validate((valid) => {
+			let _this = this
+			_this.$refs[refName].validate((valid) => {
 				if (valid) {
-					alert("submit!");
+					alert('logined')
 				} else {
 					return false;
 				}

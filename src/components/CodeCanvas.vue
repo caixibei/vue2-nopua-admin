@@ -29,23 +29,27 @@ export default {
 	},
     data(){
         return {
-            codeText:''
+            codeText:'',
+            maskStyle:"--content:0",
+            maskTime:60
         }
     },
     mounted(){
         let _this = this
+        let _ = require('loadsh')
         _this.$nextTick(function(){
-            _this.draw([])
+            _this.draw([]);
+            _.debounce(_this.draw,60000)
         });
     },
 	methods: {
-		randomColor() {
+		randomColor:function() {
 			var r = Math.floor(Math.random() * 256);
 			var g = Math.floor(Math.random() * 256);
 			var b = Math.floor(Math.random() * 256);
 			return "rgb(" + r + "," + g + "," + b + ")";
 		},
-		draw(show_num) {
+		draw:function(show_num) {
             let _this = this
             _this.codeText = '';
 			var canvas_width = _this.canvasWidth;
@@ -72,7 +76,7 @@ export default {
 				context.fillText(txt, 0, 0);
 				context.rotate(-deg);
 				context.translate(-x, -y);
-                _this.codeText += toString(txt);
+                _this.codeText += ''+txt;
 			}
             //验证码上显示线条
 			for (let i = 0; i <= 5; i++) {
