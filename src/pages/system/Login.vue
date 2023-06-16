@@ -12,7 +12,7 @@
 						type="text"
 						size="medium"
 						clearable
-						v-model="formData.account"
+						v-model.trim="formData.account"
 						prefix-icon="el-icon-user-solid"
 						placeholder="账号"
 					></el-input>
@@ -23,7 +23,7 @@
 						size="medium"
 						clearable
 						show-password
-						v-model="formData.password"
+						v-model.trim="formData.password"
 						prefix-icon="el-icon-lock"
 						placeholder="密码"
 					></el-input>
@@ -33,15 +33,13 @@
 						type="text"
 						size="medium"
 						clearable
-						v-model="formData.validateCode"
+						v-model.trim="formData.validateCode"
 						prefix-icon="el-icon-key"
 						maxlength="4"
 						placeholder="验证码"
 					>
 						<template slot="append">
-							<div class="validate_code">
-								3248
-							</div>
+							<code-canvas canvas-id="validate_code" canvas-width="100" canvas-height="32"></code-canvas>
 						</template>
 					</el-input>
 				</el-form-item>
@@ -93,8 +91,9 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon.vue";
+import CodeCanvas from "@/components/CodeCanvas.vue";
 export default {
-	components: { SvgIcon },
+	components: { SvgIcon,CodeCanvas },
 	name: "login-u",
 	data() {
 		// 账号校验
@@ -251,13 +250,6 @@ export default {
 .login_form:deep(.el-input-group__append) {
 	padding: 0;
 	cursor: pointer;
-}
-
-.validate_code{
-	width: 100px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .login_form:deep(.el-icon-circle-check) {
