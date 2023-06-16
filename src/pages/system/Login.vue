@@ -174,6 +174,7 @@ export default {
 .svg-icon-logo {
 	width: 50%;
 }
+
 .svg-icon-wechat_icon,
 .svg-icon-weibo_icon,
 .svg-icon-qq_icon,
