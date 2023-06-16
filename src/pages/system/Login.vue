@@ -4,6 +4,7 @@
 			<svg-icon icon-name="login_dh" icon-class="login_dh"></svg-icon>
 		</div>
 		<div class="login_form">
+			<svg-icon icon-name="logo" icon-class="logo"></svg-icon>
 			<div class="login_form_title">nopua</div>
 			<el-form :label-position="labelPosition" :model="formLabelAlign">
 				<el-form-item>
@@ -56,9 +57,24 @@
 					<el-button size="small">注册</el-button>
 				</el-form-item>
 				<el-form-item>
-					<div class="linear_line"></div>
+					<el-divider content-position="center" class="linear_line"
+						>第三方登录</el-divider
+					>
 				</el-form-item>
-				<el-form-item class="other_way_btns"> </el-form-item>
+				<el-form-item>
+					<div class="other_way_btns">
+						<svg-icon
+							icon-name="wechat_icon"
+							icon-class="wechat_icon"
+						></svg-icon>
+						<svg-icon
+							icon-name="alipay_icon"
+							icon-class="alipay_icon"
+						></svg-icon>
+						<svg-icon icon-name="qq_icon" icon-class="qq_icon"></svg-icon>
+						<svg-icon icon-name="weibo_icon" icon-class="weibo_icon"></svg-icon>
+					</div>
+				</el-form-item>
 			</el-form>
 		</div>
 	</div>
@@ -101,10 +117,13 @@ export default {
 	align-items: center;
 	top: -10%;
 	position: relative;
+	background-color: rgba(255, 255, 255, 1);
+	padding: 40px;
+	border-radius: 5px;
 }
 .logo_login {
 	height: 100%;
-	width: 20%;
+	width: 50%;
 }
 .logo_login:hover {
 	animation: rotateLogo 3s ease-in-out forwards alternate infinite;
@@ -138,27 +157,49 @@ export default {
 .login_form .el-form-item {
 	margin-bottom: 10px;
 }
-.linear_line {
-	width: 100%;
-	height: 0px;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-	padding-top: 10px;
-}
-.linear_line::before {
-	content: "第三方登录";
-	position: absolute;
+.linear_line .el-divider__text {
 	color: rgba(0, 0, 0, 0.3);
-	transform: translate(170%) translateY(-50%);
 	font-size: 12px;
-	background-color: #fff;
-	padding: 0px 10px 0 10px;
+	background: rgba(255, 255, 255, 1);
 }
 .other_way_btns {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: 10%;
 }
-.svg-icon-login_dh{
-	width:550px;
+.svg-icon-login_dh {
+	width: 550px;
+}
+.svg-icon-logo {
+	width: 50%;
+}
+.svg-icon-wechat_icon,
+.svg-icon-weibo_icon,
+.svg-icon-qq_icon,
+.svg-icon-alipay_icon {
+	width: 36px;
+	color: #6b7280;
+}
+
+.svg-icon-wechat_icon:hover,
+.svg-icon-weibo_icon:hover,
+.svg-icon-qq_icon:hover,
+.svg-icon-alipay_icon:hover {
+	color: #60a5fa;
+}
+
+/* 适配移动设备-手机端 */
+@media (min-width: 320px) and (max-width: 480px) {
+	#login_app {
+		gap: 0;
+	}
+	.login_form {
+		top: 0;
+		padding: 10px;
+	}
+	.svg-icon-login_dh {
+		display: none;
+	}
 }
 </style>
