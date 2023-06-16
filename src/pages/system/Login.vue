@@ -52,7 +52,11 @@
 					<el-checkbox v-model="formData.rememberPassword"
 						>记住密码</el-checkbox
 					>
-					<el-link type="primary" class="forget_link" :underline="false"
+					<el-link
+						type="primary"
+						class="forget_link"
+						:underline="false"
+						@click.native="noserver"
 						>忘记密码？</el-link
 					>
 				</el-form-item>
@@ -66,9 +70,11 @@
 					>
 				</el-form-item>
 				<el-form-item class="login_way_btns">
-					<el-button size="small">手机登录</el-button>
-					<el-button size="small">二维码登录</el-button>
-					<el-button size="small">注册</el-button>
+					<el-button size="small" @click.native="noserver">手机登录</el-button>
+					<el-button size="small" @click.native="noserver"
+						>二维码登录</el-button
+					>
+					<el-button size="small" @click.native="noserver">注册</el-button>
 				</el-form-item>
 				<el-form-item>
 					<el-divider content-position="center" class="linear_line"
@@ -80,13 +86,23 @@
 						<svg-icon
 							icon-name="wechat_icon"
 							icon-class="wechat_icon"
+							@click.native="noserver"
 						></svg-icon>
 						<svg-icon
 							icon-name="alipay_icon"
 							icon-class="alipay_icon"
+							@click.native="noserver"
 						></svg-icon>
-						<svg-icon icon-name="qq_icon" icon-class="qq_icon"></svg-icon>
-						<svg-icon icon-name="weibo_icon" icon-class="weibo_icon"></svg-icon>
+						<svg-icon
+							icon-name="qq_icon"
+							icon-class="qq_icon"
+							@click.native="noserver"
+						></svg-icon>
+						<svg-icon
+							icon-name="weibo_icon"
+							icon-class="weibo_icon"
+							@click.native="noserver"
+						></svg-icon>
 					</div>
 				</el-form-item>
 			</el-form>
@@ -132,8 +148,8 @@ export default {
 			validate_code: "",
 			// 表单数据
 			formData: {
-				account: "",
-				password: "",
+				account: "nopua@qq.com",
+				password: "Abcd123@!",
 				validateCode: "",
 				rememberPassword: false,
 			},
@@ -149,7 +165,7 @@ export default {
 		};
 	},
 	mounted() {
-		this.notice()
+		this.notice();
 	},
 	methods: {
 		/**
@@ -161,26 +177,34 @@ export default {
 				body: `源码地址：https://github.com/caixibei/vue2-nopua-admin (前台服务) \t\n https://github.com/caixibei/nopua-server （后台服务）`,
 				image: "https://img1.imgtp.com/2023/06/16/TZQohVdJ.svg",
 			};
-			const notice = new Notification("温馨提示", cfgtmp);
 			var permission = window.Notification.permission;
 			if (permission != "granted") {
 				Notification.requestPermission();
 			} else {
-				notice.onshow();
+				new Notification("温馨提示", cfgtmp);
 			}
 		},
 		/**
 		 * 登录事件
-		 * @param {string} refName 
+		 * @param {string} refName
 		 */
 		login: function (refName) {
 			let _this = this;
 			_this.$refs[refName].validate((valid) => {
 				if (valid) {
-					alert("logined");
+					this.$message({
+						message: "服务接口暂未接入，敬请期待！",
+						type: "success",
+					});
 				} else {
 					return false;
 				}
+			});
+		},
+		noserver: function () {
+			this.$message({
+				message: "服务接口暂未接入，敬请期待！",
+				type: "warning",
 			});
 		},
 	},
@@ -276,6 +300,7 @@ export default {
 .svg-icon-qq_icon:hover,
 .svg-icon-alipay_icon:hover {
 	color: #60a5fa;
+	cursor: pointer;
 }
 
 .login_form:deep(.el-input-group__append) {
