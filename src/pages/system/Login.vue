@@ -1,8 +1,27 @@
 <template>
-	<div id="login_app">
+	<div id="login_app" ref="data-theme">
+		<!-- 主题切换 -->
+		<el-switch
+			class="switchTheme"
+			v-model="dataTheme"
+			active-value="dark"
+			inactive-value="light"
+			inactive-icon-class="el-icon-sunny"
+			active-icon-class="el-icon-moon-night"
+			@change="themeChange"
+		></el-switch>
+		<!-- 国际化按钮 -->
+		<svg-icon
+			slot="reference"
+			icon-name="translate"
+			icon-class="translate"
+			@click.native="noserver"
+		></svg-icon>
+		<!-- 登录表单左侧的大头 -->
 		<div>
 			<svg-icon icon-name="login_dh" icon-class="login_dh"></svg-icon>
 		</div>
+		<!-- 登录表单 -->
 		<div class="login_form">
 			<svg-icon icon-name="logo" icon-class="logo"></svg-icon>
 			<div class="login_form_title">nopua-admin</div>
@@ -111,7 +130,7 @@
 </template>
 
 <script>
-import _ from 'loadsh'
+import _ from "loadsh";
 import SvgIcon from "@/components/SvgIcon.vue";
 import CodeCanvas from "@/components/CodeCanvas.vue";
 export default {
@@ -146,6 +165,10 @@ export default {
 			}
 		};
 		return {
+			// 主题色
+			dataTheme: "light",
+			popoverTheme: "",
+			// 验证码
 			validate_code: "",
 			// 表单数据
 			formData: {
@@ -166,9 +189,16 @@ export default {
 		};
 	},
 	mounted() {
+		this.$refs["data-theme"].setAttribute("data-theme", this.dataTheme);
 		this.notice();
 	},
 	methods: {
+		/**
+		 * 主题色变更
+		 */
+		themeChange: function () {
+			this.$refs["data-theme"].setAttribute("data-theme", this.dataTheme);
+		},
 		/**
 		 * 站点通知消息
 		 */
@@ -205,12 +235,16 @@ export default {
 		/**
 		 * 登录限流
 		 */
-		throttleLogin:_.throttle(function(){
-			this.login('loginForm')
-		}, 3000, {
-			leading:true,
-			trailing:false
-		}),
+		throttleLogin: _.throttle(
+			function () {
+				this.login("loginForm");
+			},
+			3000,
+			{
+				leading: true,
+				trailing: false,
+			}
+		),
 		/**
 		 * 无服务接入
 		 */
@@ -225,16 +259,50 @@ export default {
 </script>
 
 <style scoped>
+/* 深色主题 */
+#login_app[data-theme="dark"] {
+	--text-color: #999;
+	--linear-text-color: #555;
+	--linear-color: #555;
+	--bg-color: #121212;
+	--btn-border-color: #393a3c;
+	--btn-color: #999;
+	--btn-hover-color: #409eff;
+	--btn-hover-bg-color: #060f19;
+	--btn-hover-border-color: #204f7f;
+}
+/* 浅色主题 */
+#login_app[data-theme="light"] {
+	--text-color: #999;
+	--linear-color: rgba(0, 0, 0, 0.3);
+	--linear-text-color: rgba(0, 0, 0, 0.3);
+	--bg-color: #fff;
+	--btn-border-color: #999;
+	--btn-color: #999;
+	--btn-hover-color: #409eff;
+	--btn-hover-bg-color: #c5e1ff;
+	--btn-hover-border-color: #9fceff;
+}
+
 #login_app {
 	background: url("../../assets/img/login_bg.png") no-repeat;
 	background-size: cover;
 	width: 100vw;
+	background-color: var(--bg-color);
+	color: var(--text-color);
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: 15%;
 }
+
+.switchTheme {
+	position: fixed;
+	right: 3%;
+	top: 2%;
+}
+
 .login_form {
 	display: flex;
 	flex-direction: column;
@@ -242,7 +310,8 @@ export default {
 	align-items: center;
 	top: -10%;
 	position: relative;
-	background-color: rgba(255, 255, 255, 1);
+	background-color: var(--bg-color);
+	color: var(--text-color);
 	padding: 40px;
 	border-radius: 5px;
 }
@@ -254,7 +323,7 @@ export default {
 	animation: rotateLogo 3s ease-in-out forwards alternate infinite;
 }
 .login_form_title {
-	color: #999;
+	color: var(--text-color);
 	font: 700 120% Fira Code, Consolas, Monaco, monospace;
 	margin: 15px 0;
 	text-transform: uppercase;
@@ -275,7 +344,17 @@ export default {
 }
 .login_way_btns button {
 	width: 30%;
+	background-color: var(--bg-color);
+	border: 1px solid var(--btn-border-color);
+	color: var(--btn-color);
 }
+
+.login_way_btns button:hover {
+	color: var(--btn-hover-color);
+	background-color: var(--btn-hover-bg-color);
+	border: 1px solid var(--btn-hover-border-color);
+}
+
 .login_way_btns .el-button + .el-button {
 	margin-left: 5%;
 }
@@ -283,9 +362,13 @@ export default {
 	margin-bottom: 18px;
 }
 .linear_line .el-divider__text {
-	color: rgba(0, 0, 0, 0.3);
 	font-size: 12px;
-	background: rgba(255, 255, 255, 1);
+	background-color: var(--bg-color);
+	color: var(--linear-text-color);
+}
+.login_form:deep(.el-divider) {
+	background-color: var(--linear-color);
+	margin: 12px 0;
 }
 .other_way_btns {
 	display: flex;
@@ -314,6 +397,20 @@ export default {
 .svg-icon-alipay_icon:hover {
 	color: #60a5fa;
 	cursor: pointer;
+}
+
+.svg-icon-translate {
+	width: 1.6%;
+	position: fixed;
+	top: 2%;
+	right: 1%;
+	cursor: pointer;
+}
+
+.translate-popover-dark {
+	background: #121212;
+	border: 1px solid #999;
+	min-width: 80px;
 }
 
 .login_form:deep(.el-input-group__append) {
