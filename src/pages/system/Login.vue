@@ -11,12 +11,29 @@
 			@change="themeChange"
 		></el-switch>
 		<!-- 国际化按钮 -->
-		<svg-icon
-			slot="reference"
-			icon-name="translate"
-			icon-class="translate"
-			@click.native="noserver"
-		></svg-icon>
+		<el-dropdown
+			trigger="click"
+			class="translate-dropdown"
+			@command="translateCommand"
+		>
+			<!-- ! 说明：这里必须使用span包裹下 svg 图标，因为 dropdown渲染时候会 给里面的元素添加 className -->
+			<!-- ! 但是svg的图标元素不允许class属性（只读），所以会造成控制台报错 -->
+			<span>
+				<svg-icon icon-name="translate" icon-class="translate"></svg-icon>
+			</span>
+			<el-dropdown-menu slot="dropdown">
+				<el-dropdown-item
+					command="chinese"
+					:icon="translateCheckIcon('chinese')"
+					>简体中文</el-dropdown-item
+				>
+				<el-dropdown-item
+					command="english"
+					:icon="translateCheckIcon('english')"
+					>English</el-dropdown-item
+				>
+			</el-dropdown-menu>
+		</el-dropdown>
 		<!-- 登录表单左侧的大头 -->
 		<div>
 			<svg-icon icon-name="login_dh" icon-class="login_dh"></svg-icon>
@@ -167,9 +184,10 @@ export default {
 		return {
 			// 主题色
 			dataTheme: "light",
-			popoverTheme: "",
 			// 验证码
 			validate_code: "",
+			// 国际化选择
+			translateData: "chinese",
 			// 表单数据
 			formData: {
 				account: "nopua@qq.com",
@@ -193,6 +211,18 @@ export default {
 		this.notice();
 	},
 	methods: {
+		/**
+		 * 国际化语言切换
+		 */
+		translateCommand: function (command) {
+			this.translateData = command;
+		},
+		/**
+		 * 国际化按钮选项的图标
+		 */
+		translateCheckIcon: function (command) {
+			return this.translateData === command ? "el-icon-check" : "el-icon-none";
+		},
 		/**
 		 * 主题色变更
 		 */
@@ -400,17 +430,17 @@ export default {
 }
 
 .svg-icon-translate {
-	width: 1.6%;
+	width: 30px;
 	position: fixed;
 	top: 2%;
 	right: 1%;
 	cursor: pointer;
 }
 
-.translate-popover-dark {
-	background: #121212;
-	border: 1px solid #999;
-	min-width: 80px;
+.translate-dropdown {
+	position: fixed;
+	top: 4%;
+	right: 1.7%;
 }
 
 .login_form:deep(.el-input-group__append) {
