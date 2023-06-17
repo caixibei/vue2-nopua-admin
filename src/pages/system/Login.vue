@@ -65,7 +65,7 @@
 						type="primary"
 						size="small"
 						class="login_btn"
-						@click="login('loginForm')"
+						@click="throttleLogin"
 						>登录</el-button
 					>
 				</el-form-item>
@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import _ from 'loadsh'
 import SvgIcon from "@/components/SvgIcon.vue";
 import CodeCanvas from "@/components/CodeCanvas.vue";
 export default {
@@ -201,6 +202,18 @@ export default {
 				}
 			});
 		},
+		/**
+		 * 登录限流
+		 */
+		throttleLogin:_.throttle(function(){
+			this.login('loginForm')
+		}, 3000, {
+			leading:true,
+			trailing:false
+		}),
+		/**
+		 * 无服务接入
+		 */
 		noserver: function () {
 			this.$message({
 				message: "服务接口暂未接入，敬请期待！",
