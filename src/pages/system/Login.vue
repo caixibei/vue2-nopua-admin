@@ -452,6 +452,9 @@ export default {
 	color: #409eff;
 }
 
+.el-dropdown-menu {
+	padding: 0;
+}
 /* 深度选择器（vue3已废弃） */
 /* .login_form >>> .el-icon-circle-check{
 	color:#409EFF;
