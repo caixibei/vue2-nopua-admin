@@ -16,7 +16,7 @@
 			class="translate-dropdown"
 			@command="translateCommand"
 		>
-			<!-- ! 说明：这里必须使用span包裹下 svg 图标，因为 dropdown渲染时候会 给里面的元素添加 className -->
+			<!-- ! 说明：这里必须使用span包裹下 svg 图标，因为 dropdown 渲染时候会 给里面的元素添加 className -->
 			<!-- ! 但是svg的图标元素不允许class属性（只读），所以会造成控制台报错 -->
 			<span>
 				<svg-icon icon-name="translate" icon-class="translate"></svg-icon>
@@ -44,17 +44,7 @@
 		<div class="login_form">
 			<svg-icon icon-name="logo" icon-class="logo"></svg-icon>
 			<div class="login_form_title">
-				<span style="--time: 1">n</span>
-				<span style="--time: 2">o</span>
-				<span style="--time: 3">p</span>
-				<span style="--time: 4">u</span>
-				<span style="--time: 5">a</span>
-				<span style="--time: 6">-</span>
-				<span style="--time: 7">a</span>
-				<span style="--time: 8">d</span>
-				<span style="--time: 9">m</span>
-				<span style="--time: 10">i</span>
-				<span style="--time: 11">n</span>
+				<span>Nopua-Admin</span>
 			</div>
 			<el-form :model="formData" :rules="formRules" ref="loginForm" status-icon>
 				<el-form-item prop="account">
@@ -528,28 +518,6 @@ export default {
 }
 .login_form /deep/ .el-icon-circle-check{
 	color:#409EFF;
-} */
-
-/** 弹跳动画 */
-/* .login_form_title {
-	display: flex;
-}
-.login_form_title span {
-	animation: showTitleAnimate 3s calc(0.3s * var(--time)) linear forwards infinite;
-}
-@keyframes showTitleAnimate {
-	0% {
-		transform: translateY(0px);
-	}
-
-	20% {
-		transform: translateY(-20px);
-	}
-
-	40%,
-	100% {
-		transform: translateY(0px);
-	}
 } */
 
 /* 适配移动设备-手机端 */
