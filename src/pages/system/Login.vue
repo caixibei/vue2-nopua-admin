@@ -26,13 +26,13 @@
 					command="zh-CN"
 					:icon="translateCheckIcon('zh-CN')"
 					:class="{ 'dropdown-item': dropdownActive }"
-					>简体中文</el-dropdown-item
+					>{{ $t("lang.zh-CN") }}</el-dropdown-item
 				>
 				<el-dropdown-item
 					command="en-US"
 					:icon="translateCheckIcon('en-US')"
 					:class="{ 'dropdown-item': !dropdownActive }"
-					>English</el-dropdown-item
+					>{{ $t("lang.en-US") }}</el-dropdown-item
 				>
 			</el-dropdown-menu>
 		</el-dropdown>
@@ -52,7 +52,7 @@
 						clearable
 						v-model.trim="formData.account"
 						prefix-icon="el-icon-user-solid"
-						placeholder="账号"
+						:placeholder="$t('lang.account_placeholder')"
 					></el-input>
 				</el-form-item>
 				<el-form-item prop="password">
@@ -63,7 +63,7 @@
 						show-password
 						v-model.trim="formData.password"
 						prefix-icon="el-icon-lock"
-						placeholder="密码"
+						:placeholder="$t('lang.password_placeholder')"
 					></el-input>
 				</el-form-item>
 				<el-form-item prop="validateCode">
@@ -74,7 +74,7 @@
 						v-model.trim="formData.validateCode"
 						prefix-icon="el-icon-key"
 						maxlength="4"
-						placeholder="验证码"
+						:placeholder="$t('lang.verification_placeholder')"
 					>
 						<template slot="append">
 							<code-canvas
@@ -87,15 +87,16 @@
 					</el-input>
 				</el-form-item>
 				<el-form-item class="login_forget">
-					<el-checkbox v-model="formData.rememberPassword"
-						>记住密码</el-checkbox
-					>
+					<el-checkbox v-model="formData.rememberPassword">{{
+						$t("lang.remember_password")
+					}}</el-checkbox>
 					<el-link
 						type="primary"
 						class="forget_link"
 						:underline="false"
 						@click.native="noserver"
-						>忘记密码？</el-link
+						onselectstart="return false"
+						>{{ $t("lang.forget_password") }}</el-link
 					>
 				</el-form-item>
 				<el-form-item>
@@ -104,20 +105,24 @@
 						size="small"
 						class="login_btn"
 						@click="throttleLogin"
-						>{{ $t('lang.login_btn_text') }}</el-button
+						>{{ $t("lang.login_btn_text") }}</el-button
 					>
 				</el-form-item>
 				<el-form-item class="login_way_btns">
-					<el-button size="small" @click.native="noserver">手机登录</el-button>
-					<el-button size="small" @click.native="noserver"
-						>二维码登录</el-button
-					>
-					<el-button size="small" @click.native="noserver">注册</el-button>
+					<el-button size="small" @click.native="noserver">{{
+						$t("lang.phone_login_btn_text")
+					}}</el-button>
+					<el-button size="small" @click.native="noserver">{{
+						$t("lang.qrcode_login_btn_text")
+					}}</el-button>
+					<el-button size="small" @click.native="noserver">{{
+						$t("lang.register_btn_text")
+					}}</el-button>
 				</el-form-item>
 				<el-form-item>
-					<el-divider content-position="center" class="linear_line"
-						>第三方登录</el-divider
-					>
+					<el-divider content-position="center" class="linear_line">{{
+						$t("lang.third_party_login_text")
+					}}</el-divider>
 				</el-form-item>
 				<el-form-item>
 					<div class="other_way_btns">
@@ -162,11 +167,11 @@ export default {
 				/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 			const qqEmailPattern = /^[A-Za-z0-9\u4e00-\u9fa5]+@qq.com$/;
 			if (value === "") {
-				fn(new Error("请输入账号"));
+				fn(new Error(this.$t("lang.validate_msg.account_error1")));
 			} else if (!emialPattern.test(value)) {
-				fn(new Error("账号格式为邮箱格式"));
+				fn(new Error(this.$t("lang.validate_msg.account_error2")));
 			} else if (!qqEmailPattern.test(value)) {
-				fn(new Error("仅支持QQ邮箱登录"));
+				fn(new Error(this.$t("lang.validate_msg.account_error3")));
 			} else {
 				fn();
 			}
@@ -176,16 +181,26 @@ export default {
 			const passwordValidation =
 				/^.*(?=.{8,18})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
 			if (value === "") {
-				fn(new Error("请输入密码"));
+				fn(new Error(this.$t("lang.validate_msg.password_error1")));
 			} else if (!passwordValidation.test(value)) {
-				fn(new Error("密码格式应为8-18位数字、大小写字母、特殊符号的组合"));
+				fn(new Error(this.$t("lang.validate_msg.password_error2")));
+			} else {
+				fn();
+			}
+		};
+		// 验证码校验
+		const codeValidation = (rule, value, fn) => {
+			if (!value) {
+				fn(new Error(this.$t("lang.validate_msg.verification_error1")));
+			} else if (value.length!=4) {
+				fn(new Error(this.$t("lang.validate_msg.verification_error2")));
 			} else {
 				fn();
 			}
 		};
 		return {
 			// 主题色
-			dataTheme: "light",
+			dataTheme: "dark",
 			// 验证码
 			validate_code: "",
 			// 国际化选择
@@ -193,8 +208,8 @@ export default {
 			dropdownActive: true,
 			// 表单数据
 			formData: {
-				account: "nopua@qq.com",
-				password: "Abcd123@!",
+				account: "",
+				password: "",
 				validateCode: "",
 				rememberPassword: false,
 			},
@@ -202,10 +217,7 @@ export default {
 			formRules: {
 				account: [{ validator: accountValidation, trigger: "blur" }],
 				password: [{ validator: passwordValidation, trigger: "blur" }],
-				validateCode: [
-					{ required: true, message: "请输入验证码", trigger: "blur" },
-					{ min: 4, max: 4, message: "请输入4位验证码", trigger: "blur" },
-				],
+				validateCode: [{ validator: codeValidation, trigger: "blur" }],
 			},
 		};
 	},
@@ -306,6 +318,8 @@ export default {
 	--btn-hover-bg-color: #060f19;
 	--btn-hover-border-color: #204f7f;
 	--translate-border-color: #2e2e2e;
+	--login-input-innner-text-color:#999;
+	--login-input-innner-border-color:#393a3c;
 }
 /* 浅色主题 */
 #login_app[data-theme="light"] {
@@ -319,6 +333,8 @@ export default {
 	--btn-hover-bg-color: #c5e1ff;
 	--btn-hover-border-color: #9fceff;
 	--translate-border-color: #3a3a3a;
+	--login-input-innner-text-color:#232323;
+	--login-input-innner-border-color:#cdcccc;
 }
 
 #login_app {
@@ -352,6 +368,17 @@ export default {
 	padding: 40px;
 	border-radius: 5px;
 }
+
+.login_form:deep(.el-input__inner){
+	background-color: var(--bg-color);
+	color: var(--login-input-innner-text-color);
+	border: 1px solid var(--login-input-innner-border-color);
+}
+
+.login_form:deep(.el-form-item.is-error .el-input__inner){
+	border-color: #f56c6c !important;
+}
+
 .logo_login {
 	height: 100%;
 	width: 50%;
