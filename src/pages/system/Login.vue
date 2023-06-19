@@ -23,13 +23,15 @@
 			</span>
 			<el-dropdown-menu slot="dropdown">
 				<el-dropdown-item
-					command="chinese"
-					:icon="translateCheckIcon('chinese')"
+					command="zh-CN"
+					:icon="translateCheckIcon('zh-CN')"
+					:class="{ 'dropdown-item': dropdownActive }"
 					>简体中文</el-dropdown-item
 				>
 				<el-dropdown-item
-					command="english"
-					:icon="translateCheckIcon('english')"
+					command="en-US"
+					:icon="translateCheckIcon('en-US')"
+					:class="{ 'dropdown-item': !dropdownActive }"
 					>English</el-dropdown-item
 				>
 			</el-dropdown-menu>
@@ -102,7 +104,7 @@
 						size="small"
 						class="login_btn"
 						@click="throttleLogin"
-						>登录</el-button
+						>{{ $t('lang.login_btn_text') }}</el-button
 					>
 				</el-form-item>
 				<el-form-item class="login_way_btns">
@@ -187,7 +189,8 @@ export default {
 			// 验证码
 			validate_code: "",
 			// 国际化选择
-			translateData: "chinese",
+			translateData: this.$i18n.locale,
+			dropdownActive: true,
 			// 表单数据
 			formData: {
 				account: "nopua@qq.com",
@@ -216,6 +219,8 @@ export default {
 		 */
 		translateCommand: function (command) {
 			this.translateData = command;
+			this.dropdownActive = command == "zh-CN";
+			this.$i18n.locale = command;
 		},
 		/**
 		 * 国际化按钮选项的图标
@@ -300,6 +305,7 @@ export default {
 	--btn-hover-color: #409eff;
 	--btn-hover-bg-color: #060f19;
 	--btn-hover-border-color: #204f7f;
+	--translate-border-color: #2e2e2e;
 }
 /* 浅色主题 */
 #login_app[data-theme="light"] {
@@ -312,6 +318,7 @@ export default {
 	--btn-hover-color: #409eff;
 	--btn-hover-bg-color: #c5e1ff;
 	--btn-hover-border-color: #9fceff;
+	--translate-border-color: #3a3a3a;
 }
 
 #login_app {
@@ -455,6 +462,15 @@ export default {
 .el-dropdown-menu {
 	padding: 0;
 }
+
+.el-dropdown-menu__item:not(.is-disabled):hover {
+	color: #409eff;
+}
+
+.dropdown-item {
+	color: #409eff;
+}
+
 /* 深度选择器（vue3已废弃） */
 /* .login_form >>> .el-icon-circle-check{
 	color:#409EFF;
@@ -474,6 +490,17 @@ export default {
 	}
 	.svg-icon-login_dh {
 		display: none;
+	}
+
+	.switchTheme {
+		right: 14%;
+	}
+	.translate-dropdown {
+		right: 7%;
+	}
+
+	.svg-icon-translate {
+		right: 4%;
 	}
 }
 </style>
