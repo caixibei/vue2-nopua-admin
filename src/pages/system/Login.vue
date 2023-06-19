@@ -43,7 +43,19 @@
 		<!-- 登录表单 -->
 		<div class="login_form">
 			<svg-icon icon-name="logo" icon-class="logo"></svg-icon>
-			<div class="login_form_title">nopua-admin</div>
+			<div class="login_form_title">
+				<span style="--time: 1">n</span>
+				<span style="--time: 2">o</span>
+				<span style="--time: 3">p</span>
+				<span style="--time: 4">u</span>
+				<span style="--time: 5">a</span>
+				<span style="--time: 6">-</span>
+				<span style="--time: 7">a</span>
+				<span style="--time: 8">d</span>
+				<span style="--time: 9">m</span>
+				<span style="--time: 10">i</span>
+				<span style="--time: 11">n</span>
+			</div>
 			<el-form :model="formData" :rules="formRules" ref="loginForm" status-icon>
 				<el-form-item prop="account">
 					<el-input
@@ -52,6 +64,7 @@
 						clearable
 						v-model.trim="formData.account"
 						prefix-icon="el-icon-user-solid"
+						maxlength="20"
 						:placeholder="$t('lang.account_placeholder')"
 					></el-input>
 				</el-form-item>
@@ -62,6 +75,7 @@
 						clearable
 						show-password
 						v-model.trim="formData.password"
+						maxlength="18"
 						prefix-icon="el-icon-lock"
 						:placeholder="$t('lang.password_placeholder')"
 					></el-input>
@@ -90,6 +104,7 @@
 					<el-checkbox v-model="formData.rememberPassword">{{
 						$t("lang.remember_password")
 					}}</el-checkbox>
+					<!--! 通过onselectstart禁用双击时选中文本 -->
 					<el-link
 						type="primary"
 						class="forget_link"
@@ -192,7 +207,7 @@ export default {
 		const codeValidation = (rule, value, fn) => {
 			if (!value) {
 				fn(new Error(this.$t("lang.validate_msg.verification_error1")));
-			} else if (value.length!=4) {
+			} else if (value.length != 4) {
 				fn(new Error(this.$t("lang.validate_msg.verification_error2")));
 			} else {
 				fn();
@@ -318,8 +333,9 @@ export default {
 	--btn-hover-bg-color: #060f19;
 	--btn-hover-border-color: #204f7f;
 	--translate-border-color: #2e2e2e;
-	--login-input-innner-text-color:#999;
-	--login-input-innner-border-color:#393a3c;
+	--login-input-innner-text-color: #999;
+	--login-input-innner-border-color: #393a3c;
+	--input-placeholder-color: #4a4a4a;
 }
 /* 浅色主题 */
 #login_app[data-theme="light"] {
@@ -333,8 +349,9 @@ export default {
 	--btn-hover-bg-color: #c5e1ff;
 	--btn-hover-border-color: #9fceff;
 	--translate-border-color: #3a3a3a;
-	--login-input-innner-text-color:#232323;
-	--login-input-innner-border-color:#cdcccc;
+	--login-input-innner-text-color: #232323;
+	--login-input-innner-border-color: #cdcccc;
+	--input-placeholder-color: #cdcccc;
 }
 
 #login_app {
@@ -369,14 +386,21 @@ export default {
 	border-radius: 5px;
 }
 
-.login_form:deep(.el-input__inner){
+.login_form:deep(.el-input__inner) {
 	background-color: var(--bg-color);
 	color: var(--login-input-innner-text-color);
 	border: 1px solid var(--login-input-innner-border-color);
 }
 
-.login_form:deep(.el-form-item.is-error .el-input__inner){
+.login_form:deep(.el-form-item.is-error .el-input__inner) {
 	border-color: #f56c6c !important;
+}
+.login_form:deep(
+		.el-input__inner::placeholder,
+		.el-input__inner::-moz-placeholder,
+		.el-input__inner::-webkit-input-placeholder
+	) {
+	color: var(--input-placeholder-color) !important;
 }
 
 .logo_login {
@@ -504,6 +528,28 @@ export default {
 }
 .login_form /deep/ .el-icon-circle-check{
 	color:#409EFF;
+} */
+
+/** 弹跳动画 */
+/* .login_form_title {
+	display: flex;
+}
+.login_form_title span {
+	animation: showTitleAnimate 3s calc(0.3s * var(--time)) linear forwards infinite;
+}
+@keyframes showTitleAnimate {
+	0% {
+		transform: translateY(0px);
+	}
+
+	20% {
+		transform: translateY(-20px);
+	}
+
+	40%,
+	100% {
+		transform: translateY(0px);
+	}
 } */
 
 /* 适配移动设备-手机端 */
