@@ -20,5 +20,8 @@ export const lang = {
         password_error2: '密码格式应为8-18位数字、大小写字母、特殊符号的组合',
         verification_error1:'请输入验证码',
         verification_error2:'请输入4位验证码',
+    },
+    noticationMsg:{
+        title:'通知',
     }
 }

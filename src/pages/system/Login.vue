@@ -10,13 +10,13 @@
 			active-icon-class="el-icon-moon-night"
 			@change="themeChange"
 		></el-switch>
-		<!-- 国际化按钮 -->
+		<!-- 国际化i18n按钮 -->
 		<el-dropdown
 			trigger="click"
 			class="translate-dropdown"
 			@command="translateCommand"
 		>
-			<!-- ! 说明：这里必须使用span包裹下 svg 图标，因为 dropdown 渲染时候会 给里面的元素添加 className -->
+			<!-- ! 说明：这里必须使用span包裹下 svg 图标，因为 dropdown 渲染时候会 给里面的元素添加 class -->
 			<!-- ! 但是svg的图标元素不允许class属性（只读），所以会造成控制台报错 -->
 			<span>
 				<svg-icon icon-name="translate" icon-class="translate"></svg-icon>
@@ -264,7 +264,7 @@ export default {
 			if (permission != "granted") {
 				Notification.requestPermission();
 			} else {
-				new Notification("温馨提示", cfgtmp);
+				new Notification(this.$t('lang.noticationMsg.title'), cfgtmp);
 			}
 		},
 		/**

@@ -20,5 +20,8 @@ export const lang = {
         password_error2: 'Password format should be a combination of 8-18 digits, uppercase and lowercase letters and special symbols.',
         verification_error1:'Please enter the verification code.',
         verification_error2:'Please enter a 4-digit verification code',
+    },
+    noticationMsg:{
+        title:'Notice',
     }
 }
