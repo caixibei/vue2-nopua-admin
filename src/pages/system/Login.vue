@@ -155,6 +155,29 @@
 				</el-form-item>
 			</el-form>
 		</div>
+		<div class="footer_status">
+			<div class="footer_body">
+				<div class="part_two">
+					<div>
+						<img src="../../assets/img/jgwab.png" />
+					</div>
+					<span>京公网安备11010*****09747号</span>
+				</div>
+				<div class="part_one">
+					<a
+						href="https://www.murphysec.com/console/report/1671872694953525248/1672101577829203968"
+						alt="Security Status"
+					>
+						<img
+							src="https://www.murphysec.com/platform3/v31/badge/1672101577829203968.svg"
+						/>
+					</a>
+					<a href="https://gitee.com/caixibei/nopua-server">
+						<svg-icon icon-class="github_icon" icon-name="github_icon"></svg-icon>
+					</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -264,7 +287,7 @@ export default {
 			if (permission != "granted") {
 				Notification.requestPermission();
 			} else {
-				new Notification(this.$t('lang.noticationMsg.title'), cfgtmp);
+				new Notification(this.$t("lang.noticationMsg.title"), cfgtmp);
 			}
 		},
 		/**
@@ -485,6 +508,11 @@ export default {
 	cursor: pointer;
 }
 
+.svg-icon-github_icon {
+	width: 30px;
+	fill:var(--login-input-innner-text-color)
+}
+
 .translate-dropdown {
 	position: fixed;
 	top: 4%;
@@ -510,6 +538,43 @@ export default {
 
 .dropdown-item {
 	color: #409eff;
+}
+
+.footer_status {
+	position: fixed;
+	bottom: 2%;
+}
+.footer_body {
+	display: flex;
+	flex-direction: column;
+	gap:5px;
+}
+
+.part_one img {
+	width: 100px;
+}
+.part_one,
+.part_one a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.part_one{
+	gap:10%;
+}
+
+.part_two {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--login-input-innner-border-color);
+	font-size: 10px;
+	line-height: 15px;
+	gap: 3px;
+}
+.part_two img {
+	width: 15px;
 }
 
 /* 深度选择器（vue3已废弃） */
