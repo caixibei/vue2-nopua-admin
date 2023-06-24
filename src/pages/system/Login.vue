@@ -231,7 +231,7 @@ export default {
 		};
 		return {
 			// 主题色
-			dataTheme: "dark",
+			dataTheme: "light",
 			// 验证码
 			validate_code: "",
 			// 国际化选择
