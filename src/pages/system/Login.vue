@@ -173,7 +173,10 @@
 						/>
 					</a>
 					<a href="https://gitee.com/caixibei/nopua-server">
-						<svg-icon icon-class="github_icon" icon-name="github_icon"></svg-icon>
+						<svg-icon
+							icon-class="github_icon"
+							icon-name="github_icon"
+						></svg-icon>
 					</a>
 				</div>
 			</div>
@@ -251,9 +254,24 @@ export default {
 	},
 	mounted() {
 		this.$refs["data-theme"].setAttribute("data-theme", this.dataTheme);
-		this.notice();
+		this.notifaction();
 	},
 	methods: {
+		/**
+		 * 页面通知
+		 */
+		notifaction() {
+			this.$notify({
+				title: "NoPua通知（源码地址）",
+				type: "success",
+				showClose: false,
+				offset: 30,
+				duration:30000,
+				dangerouslyUseHTMLString: true,
+				message:
+					"<p>前端代码:<br><a href='https://github.com/caixibei/vue2-nopua-admin'>vue2-nopua-admin</a></p>  <p>后端代码:<br><a href='https://gitee.com/caixibei/nopua-server'>nopua-server</a></p>",
+			});
+		},
 		/**
 		 * 国际化语言切换
 		 */
@@ -275,7 +293,8 @@ export default {
 			this.$refs["data-theme"].setAttribute("data-theme", this.dataTheme);
 		},
 		/**
-		 * 站点通知消息
+		 * 站点通知消息(废弃)、使用element替代
+		 * @deprecated
 		 */
 		notice: function () {
 			const cfgtmp = {
@@ -510,7 +529,7 @@ export default {
 
 .svg-icon-github_icon {
 	width: 30px;
-	fill:var(--login-input-innner-text-color)
+	fill: var(--login-input-innner-text-color);
 }
 
 .translate-dropdown {
@@ -547,7 +566,7 @@ export default {
 .footer_body {
 	display: flex;
 	flex-direction: column;
-	gap:5px;
+	gap: 5px;
 }
 
 .part_one img {
@@ -560,8 +579,8 @@ export default {
 	align-items: center;
 }
 
-.part_one{
-	gap:10%;
+.part_one {
+	gap: 10%;
 }
 
 .part_two {
