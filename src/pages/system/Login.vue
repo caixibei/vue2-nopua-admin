@@ -165,13 +165,11 @@
 				</div>
 				<div class="part_one">
 					<a
-						href="https://www.murphysec.com/console/report/1671872694953525248/1672101577829203968"
+						href="https://www.murphysec.com/console/report/1671872694953525248/1672848380030377984"
 						alt="Security Status"
-					>
-						<img
-							src="https://www.murphysec.com/platform3/v31/badge/1672101577829203968.svg"
-						/>
-					</a>
+						><img
+							src="https://www.murphysec.com/platform3/v31/badge/1672848380030377984.svg"
+					/></a>
 					<a href="https://gitee.com/caixibei/nopua-server">
 						<svg-icon
 							icon-class="github_icon"
@@ -266,7 +264,7 @@ export default {
 				type: "success",
 				showClose: true,
 				offset: 30,
-				duration:4500,
+				duration: 4500,
 				dangerouslyUseHTMLString: true,
 				message:
 					"<p>前端代码:<br><a href='https://github.com/caixibei/vue2-nopua-admin'>vue2-nopua-admin</a></p>  <p>后端代码:<br><a href='https://gitee.com/caixibei/nopua-server'>nopua-server</a></p>",
