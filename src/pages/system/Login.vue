@@ -264,9 +264,9 @@ export default {
 			this.$notify({
 				title: "NoPua通知（源码地址）",
 				type: "success",
-				showClose: false,
+				showClose: true,
 				offset: 30,
-				duration:10000,
+				duration:4500,
 				dangerouslyUseHTMLString: true,
 				message:
 					"<p>前端代码:<br><a href='https://github.com/caixibei/vue2-nopua-admin'>vue2-nopua-admin</a></p>  <p>后端代码:<br><a href='https://gitee.com/caixibei/nopua-server'>nopua-server</a></p>",
