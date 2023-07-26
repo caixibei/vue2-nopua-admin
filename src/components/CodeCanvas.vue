@@ -1,3 +1,10 @@
+<!-- 
+验证码组件，随机生成digit位数的验证码图片
+@author 蔡熙贝
+@version 1.0
+@date 2023/07/26
+@since 2023/04/01
+-->
 <template>
 	<div class="el-canvas" @click="throttleDraw">
 		<canvas
