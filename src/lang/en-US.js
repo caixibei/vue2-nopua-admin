@@ -1,5 +1,5 @@
+/** 英文语言包 */
 export const lang = {
-    //* 登录页面 语言包
     login_btn_text: 'Login',
     qrcode_login_btn_text: 'QRCode Login',
     register_btn_text: 'Register',
