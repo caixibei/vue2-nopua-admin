@@ -186,6 +186,7 @@
 import _ from "loadsh";
 import SvgIcon from "@/components/SvgIcon.vue";
 import CodeCanvas from "@/components/CodeCanvas.vue";
+// import axios from 'axios';
 export default {
 	components: { SvgIcon, CodeCanvas },
 	name: "login-u",
@@ -315,10 +316,15 @@ export default {
 			let _this = this;
 			_this.$refs[refName].validate((valid) => {
 				if (valid) {
-					this.$message({
-						message: "服务接口暂未接入，敬请期待！",
-						type: "success",
-					});
+					// this.$message({
+					// 	message: "服务接口暂未接入，敬请期待！",
+					// 	type: "success",
+					// });
+					// axios.post({
+					// 	url:'',
+					// }).then(res=>{
+
+					// })
 				} else {
 					return false;
 				}
