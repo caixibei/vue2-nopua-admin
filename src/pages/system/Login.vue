@@ -186,10 +186,8 @@
 import _ from "loadsh";
 import SvgIcon from "@/components/SvgIcon.vue";
 import CodeCanvas from "@/components/CodeCanvas.vue";
-// import axios from 'axios';
 export default {
 	components: { SvgIcon, CodeCanvas },
-	name: "login-u",
 	data() {
 		// 账号校验
 		const accountValidation = (rule, value, fn) => {

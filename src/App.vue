@@ -1,15 +1,13 @@
 <template>
 	<div id="app">
-		<login></login>
+		<router-view></router-view>
 	</div>
 </template>
 
 <script>
-import Login from './pages/system/Login.vue';
 export default {
-	name: "App",
-	components: {Login}
-};
+	name: "App"
+}
 </script>
 
 <style>

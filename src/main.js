@@ -1,28 +1,26 @@
 import Vue from 'vue'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
-import App from './App.vue'
+
+
 import '@/icons'
-import VueI18n from 'vue-i18n'
-import axios from 'axios';
+import axios from 'axios'
+
+import router from './router'
+import i18n from './i18n'
+
+import App from './App.vue'
+
 
 Vue.config.productionTip = false
-
-Vue.use(ElementUI);
-Vue.use(VueI18n);
-Vue.use(axios);
+Vue.use(ElementUI)
+Vue.use(axios)
 
 
-//! 国际化配置
-const i18n = new VueI18n({
-  locale: 'zh-CN',
-  messages: {
-    'zh-CN': require('./lang/zh-CN'),
-    'en-US': require('./lang/en-US')
-  }
-});
 
 new Vue({
   i18n,
+  router,
   render: h => h(App),
 }).$mount('#app');

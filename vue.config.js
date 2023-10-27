@@ -6,6 +6,7 @@ const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 
 module.exports = defineConfig({
+  lintOnSave:false,
   transpileDependencies: true,
   //! svg-sprite-loader插件
   chainWebpack: config => {
