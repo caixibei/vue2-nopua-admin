@@ -1,33 +1,30 @@
-//!fixed: export 'default' (imported as 'VueRouter') was not found in 'vue-router' 
-// import VueRouter from "vue-router"
+import Vue from "vue"
+import VueRouter from "vue-router"
 
-import { createRouter,createWebHistory } from "vue-router"
-import Home from "@/pages/system/Home"
-import Login from "@/pages/system/Login"
-
-//!fixed: export 'default' (imported as 'VueRouter') was not found in 'vue-router' 
-// Vue.use(VueRouter)
+//!vue3.0+
+//import {createRouter,createWebHistory} from 'vue-router'
+Vue.use(VueRouter)
 
 const routes = [
 	{
 		path: "/",
-		component: Login,
+		component: ()=>import('@/pages/system/Login.vue')
 	},
 	{
 		path: "/home",
-		component: Home,
+		component: ()=>import('@/pages/system/Home.vue')
 	},
 ]
 
-//!fixed: export 'default' (imported as 'VueRouter') was not found in 'vue-router' 
-// const router = new VueRouter({
-//     routes
-// });
+const router = new VueRouter({
+    routes
+});
 
-const router = createRouter({
-    routes,
-    history:createWebHistory()
-})
+//!vue3.0+
+// const router = createRouter({
+//     routes,
+//     history:createWebHistory()
+// })
 
 export default router
 
