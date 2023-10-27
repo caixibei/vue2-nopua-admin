@@ -1,5 +1,6 @@
 import Vue from "vue"
-//import {createRouter,createWebHistory} from 'vue-router'//!vue3.0+
+//!vue3.0+
+//import {createRouter,createWebHistory} from 'vue-router'
 import VueRouter from "vue-router"
 Vue.use(VueRouter)
 
