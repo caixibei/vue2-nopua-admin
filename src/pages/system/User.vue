@@ -1,6 +1,6 @@
 <template>
     <div id="user">
-        
+
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
     data() {
         return {
-
+            
         }
     },
     mounted() {
