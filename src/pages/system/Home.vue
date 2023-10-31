@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import {testAxios} from '@/api'
 export default {
     data() {
         return {
@@ -12,7 +13,7 @@ export default {
         };
     },
     mounted() {
-        
+        testAxios()
     },
     methods: {
         test:function(){
