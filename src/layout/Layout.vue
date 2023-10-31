@@ -1,10 +1,10 @@
 <template>
 	<div id="home">
 		<el-container class="home-body">
-            <pua-aside></pua-aside>            
+			<pua-aside></pua-aside>
 			<el-container class="layout-body">
 				<pua-header></pua-header>
-                <pua-main></pua-main>
+				<pua-main></pua-main>
 			</el-container>
 		</el-container>
 	</div>
@@ -12,7 +12,7 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon.vue";
-import {puaAside,puaMain,puaHeader} from './components'
+import { puaAside, puaMain, puaHeader } from "./components";
 export default {
 	data() {
 		return {
@@ -22,9 +22,9 @@ export default {
 	},
 	components: {
 		SvgIcon,
-        puaAside,
-        puaMain,
-        puaHeader
+		puaAside,
+		puaMain,
+		puaHeader,
 	},
 	mounted() {},
 	methods: {},
@@ -46,9 +46,8 @@ div {
 	width: 100vw;
 }
 
-.layout-body{
-    display: flex;
-    flex-direction: column;
+.layout-body {
+	display: flex;
+	flex-direction: column;
 }
-
 </style>
