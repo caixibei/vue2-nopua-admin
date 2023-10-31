@@ -110,7 +110,9 @@
 					</div>
 				</el-header>
 
-				<el-main></el-main>
+				<el-main>
+                    <router-view></router-view>
+                </el-main>
 			</el-container>
 		</el-container>
 	</div>
