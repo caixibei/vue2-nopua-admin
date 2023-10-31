@@ -353,8 +353,10 @@ export default {
 </script>
 
 <style scoped>
-*{
-    user-select: none;
+div {
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 /* 深色主题 */
 #login_app[data-theme="dark"] {

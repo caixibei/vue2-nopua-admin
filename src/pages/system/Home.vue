@@ -88,9 +88,9 @@
 							class="user-avatar"
 							size="small"
 							fit="fill"
-                            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+							src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
 						>
-                            <img src="../../assets/img/avator_error.png">
+							<img src="../../assets/img/avator_error.png" />
 						</el-avatar>
 						<el-dropdown>
 							<span class="user-span">{{ username }}</span>
@@ -134,8 +134,10 @@ export default {
 </script>
 
 <style scoped>
-*{
-    user-select: none;
+div {
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 #home {
 	height: 100vh;
