@@ -134,6 +134,9 @@ export default {
 </script>
 
 <style scoped>
+*{
+    user-select: none;
+}
 #home {
 	height: 100vh;
 	width: 100vw;
