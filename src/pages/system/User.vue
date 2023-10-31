@@ -1,6 +1,6 @@
 <template>
     <div id="user">
-
+        Hello Baby!!
     </div>
 </template>
 

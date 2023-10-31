@@ -1,29 +1,45 @@
 import Vue from "vue"
-//!vue3.0+
-//import {createRouter,createWebHistory} from 'vue-router'
 import VueRouter from "vue-router"
-Vue.use(VueRouter)
+import Layout from '../layout/Layout.vue'
 
+Vue.use(VueRouter)
 const routes = [
 	{
 		path: "/",
-		component: ()=>import('@/pages/system/Login.vue')
+		component: () => import('@/pages/system/Login.vue'),
+		name: 'login',
+		hidden: true
 	},
 	{
-		path: "/home",
-		component: ()=>import('@/pages/system/Home.vue')
+		path: "/layout",
+		component: Layout,
+		name: 'layout',
+	},
+	{
+		path: "/system",
+		component: Layout,
+		redirect: '/system',
+		name: 'login',
+		meta: {
+			title: '系统管理',
+			icon: 'system',
+			roles: []
+		},
+		children: [{
+			path: '/system/user',
+			component: () => import('@/pages/system/User.vue'),
+			name: 'user',
+			meta: {
+				title: '用户管理',
+				roles: ['']
+			}
+		}]
 	},
 ]
 
 const router = new VueRouter({
-    routes
+	routes
 })
-
-//!vue3.0+
-// const router = createRouter({
-//     routes,
-//     history:createWebHistory()
-// })
 
 export default router
 
