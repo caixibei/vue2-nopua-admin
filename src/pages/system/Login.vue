@@ -94,13 +94,11 @@
 					<el-checkbox v-model="formData.rememberPassword">{{
 						$t("lang.remember_password")
 					}}</el-checkbox>
-					<!--! 通过onselectstart禁用双击时选中文本 -->
 					<el-link
 						type="primary"
 						class="forget_link"
 						:underline="false"
 						@click.native="noserver"
-						onselectstart="return false"
 						>{{ $t("lang.forget_password") }}</el-link
 					>
 				</el-form-item>
@@ -355,6 +353,9 @@ export default {
 </script>
 
 <style scoped>
+*{
+    user-select: none;
+}
 /* 深色主题 */
 #login_app[data-theme="dark"] {
 	--text-color: #999;
