@@ -1,10 +1,3 @@
-<!-- 
-验证码组件，随机生成digit位数的验证码图片
-@author 蔡熙贝
-@version 1.0
-@date 2023/07/26
-@since 2023/04/01
--->
 <template>
 	<div class="el-canvas" @click="throttleDraw">
 		<canvas
@@ -77,14 +70,14 @@ export default {
 			// captcha text content
 			for (var i = 0; i < digit; i++) {
 				var j = Math.floor(Math.random() * aLength);
-                //generate a random radian
+				//generate a random radian
 				var deg = Math.random() - 0.5;
-                //get a random text content of length 1
+				//get a random text content of length 1
 				var txt = aCode[j];
 				show_num[i] = txt.toLowerCase();
-                //the x-coordinate of the text on the canvas
+				//the x-coordinate of the text on the canvas
 				var x = 10 + i * 20;
-                //the y-coordinate of the text on the canvas
+				//the y-coordinate of the text on the canvas
 				var y = 20 + Math.random() * 8;
 				context.font = "bold 23px Fira Code,STSong";
 				context.translate(x, y);
@@ -121,11 +114,11 @@ export default {
 			}
 			_this.$emit("draw-code", _this.codeText);
 		},
-        /**
-         * The verification code generation is throttled, 
-         * and the verification code generation function 
-         * is called only once within a certain time range
-         */
+		/**
+		 * The verification code generation is throttled,
+		 * and the verification code generation function
+		 * is called only once within a certain time range
+		 */
 		throttleDraw: _.throttle(
 			function () {
 				let _this = this;

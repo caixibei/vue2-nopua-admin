@@ -1,3 +1,7 @@
-import Vue from 'vue'
 import axios from 'axios'
-Vue.use(axios)
+
+const http = axios.create({
+    
+})
+
+export default http

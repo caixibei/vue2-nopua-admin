@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-
-import '@/icons'  
 import router from './router'
 import i18n from './i18n'
-import '@/axios'
+
 import '@/element'
+import '@/icons'
 
 new Vue({
   i18n,

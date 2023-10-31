@@ -17,7 +17,7 @@ const routes = [
 
 const router = new VueRouter({
     routes
-});
+})
 
 //!vue3.0+
 // const router = createRouter({

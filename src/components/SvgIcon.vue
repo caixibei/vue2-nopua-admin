@@ -1,7 +1,7 @@
 <template>
-    <svg :class="getIconClass" aria-hidden="true" :viewBox="viewBox">
-        <use :xlink:href="getIconName" />
-    </svg>
+	<svg :class="getIconClass" aria-hidden="true" :viewBox="viewBox">
+		<use :xlink:href="getIconName" />
+	</svg>
 </template>
 
 <script>
@@ -34,7 +34,7 @@ export default {
 				return "svg-icon";
 			}
 		},
-	}
+	},
 };
 </script>
 
@@ -44,6 +44,6 @@ export default {
 	overflow: hidden;
 	width: 100%;
 	height: 100%;
-    cursor: pointer;
+	cursor: pointer;
 }
 </style>

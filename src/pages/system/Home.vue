@@ -16,7 +16,7 @@ export default {
     },
     methods: {
         test:function(){
-
+            this.$hhtp()
         }
     },
 }
