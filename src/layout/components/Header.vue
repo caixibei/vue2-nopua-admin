@@ -76,4 +76,13 @@ export default {
 	cursor: pointer;
 	animation: rotate-avatar 3s linear forwards infinite;
 }
+
+@keyframes rotate-avatar {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
 </style>

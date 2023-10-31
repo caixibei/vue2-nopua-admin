@@ -138,12 +138,5 @@ export default {
 	transition: all 1.8s;
 }
 
-@keyframes rotate-avatar {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
-}
+
 </style>
