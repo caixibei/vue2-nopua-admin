@@ -35,6 +35,21 @@ const routes = [
 			}
 		}]
 	},
+	{
+		path: "*",
+		component: Layout,
+		redirect: '/error',
+		name: 'error',
+		children: [{
+			path: '*',
+			component: () => import('@/pages/error/404.vue'),
+			name: '404',
+			meta: {
+				title: '404'
+			}
+		}],
+		hidden:true
+	},
 ]
 
 const router = new VueRouter({
