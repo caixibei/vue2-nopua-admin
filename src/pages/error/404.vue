@@ -22,7 +22,7 @@ export default {
 	},
 	mounted() {
 		this.interval = setInterval(() => {
-			if (this.second > 0) {
+			if (this.second > 1) {
 				this.second--;
 			} else {
 				clearInterval(this.interval);
