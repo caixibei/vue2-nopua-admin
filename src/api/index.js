@@ -1,9 +1,7 @@
 import request from "@/request"
 
-/** 测试接口 */
-export function testAxios(){
-    const url = '/posts'
-    request.get(url).then((res)=>{
-        console.log(res,'res')
-    })
+/** 查询用户信息 */
+export function queryUsers(){
+    const url = '/user/queryUsers'
+    return request.post(url)
 }

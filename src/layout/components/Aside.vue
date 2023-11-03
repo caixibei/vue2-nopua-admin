@@ -96,7 +96,7 @@ export default {
 <style scoped>
 .home-aside {
 	background: #303f5b;
-	transition: all 1.8s;
+	transition: all 800ms;
 	height: 100%;
 }
 .tbar-logo {
@@ -135,7 +135,7 @@ export default {
 
 .is-collapse {
 	width: 2vw !important;
-	transition: all 1.8s;
+	transition: all 800ms;
 }
 
 

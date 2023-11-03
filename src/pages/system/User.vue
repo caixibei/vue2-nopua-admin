@@ -36,6 +36,7 @@
 
 <script>
 import PuaTable from "@/components/PuaTable.vue";
+import {queryUsers} from '@/api/index'
 export default {
 	components: {
 		PuaTable,
@@ -153,7 +154,8 @@ export default {
 		};
 	},
 	mounted() {
-		this.getClientHeight();
+		this.getClientHeight()
+        this.query()
 	},
 	methods: {
 		getClientHeight() {
@@ -163,6 +165,9 @@ export default {
 			});
 		},
 		query() {
+            queryUsers().then(res=>{
+                console.log(res)
+            })
 		},
 	},
 };
