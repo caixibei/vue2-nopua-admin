@@ -1,7 +1,7 @@
 import axios from "@/axios";
 
 const request = axios.create({
-    baseURL:'https://www.fastmock.site/mock/c35ce9dea65e1805d88d5d77808af252/api',
+    baseURL:'http://127.0.0.1:7080/',
     timeout:3000,
 })
 
