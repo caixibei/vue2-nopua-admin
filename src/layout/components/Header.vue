@@ -74,7 +74,7 @@ export default {
 
 .user-avatar:hover {
 	cursor: pointer;
-	animation: rotate-avatar 3s linear forwards infinite;
+	animation: rotate-avatar 1s linear forwards infinite;
 }
 
 @keyframes rotate-avatar {
