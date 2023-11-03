@@ -7,6 +7,7 @@
 			border
 			:height="height"
 			show-header
+			size="small"
 			header-cell-class-name="pua-table-header"
 		>
 			<el-table-column
@@ -17,7 +18,6 @@
 				:label="item.label"
 				:min-width="item.minWidth"
 				:width="item.width"
-				sortable
 				align="center"
 			>
 			</el-table-column>
