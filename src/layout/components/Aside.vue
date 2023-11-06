@@ -41,6 +41,9 @@
 					</el-submenu>
 					<el-submenu index="3">
 						<template slot="title"><i class="el-icon-help"></i>功能</template>
+						<el-menu-item index="3-1">开发文档</el-menu-item>
+						<el-menu-item index="3-2">SQL监控</el-menu-item>
+						<el-menu-item index="3-3">操作日志</el-menu-item>
 					</el-submenu>
 					<el-submenu index="4">
 						<template slot="title"

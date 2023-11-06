@@ -31,6 +31,18 @@
 			:start="queryForm.start"
 			:limit="queryForm.limit"
 		>
+			<template slot="enabled" slot-scope="{ scope }">
+				{{ scope.enabled ? "是" : "否" }}
+			</template>
+			<template slot="accountNonExpired" slot-scope="{ scope }">
+				{{ scope.accountNonExpired ? "是" : "否" }}
+			</template>
+			<template slot="accountNonLocked" slot-scope="{ scope }">
+				{{ scope.accountNonLocked ? "是" : "否" }}
+			</template>
+			<template slot="credentialsNonExpired" slot-scope="{ scope }">
+				{{ scope.credentialsNonExpired ? "是" : "否" }}
+			</template>
 		</pua-table>
 	</div>
 </template>
@@ -96,21 +108,25 @@ export default {
 					prop: "accountNonExpired",
 					label: "账号未过期",
 					minWidth: 120,
+					slot: true,
 				},
 				{
 					prop: "accountNonLocked",
 					label: "账号未锁定",
 					minWidth: 120,
+					slot: true,
 				},
 				{
 					prop: "credentialsNonExpired",
 					label: "认证未过期",
 					minWidth: 120,
+					slot: true,
 				},
 				{
 					prop: "enabled",
 					label: "状态",
 					minWidth: 120,
+					slot: true,
 				},
 				{
 					prop: "create_time",
@@ -152,7 +168,7 @@ export default {
 .el-form-item {
 	margin-bottom: 10px;
 }
-.pua-user-form{
-    padding: 0 10px;
+.pua-user-form {
+	padding: 0 10px;
 }
 </style>

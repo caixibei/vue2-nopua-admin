@@ -10,17 +10,33 @@
 			size="small"
 			header-cell-class-name="pua-table-header"
 		>
-			<el-table-column
-				v-for="(item, index) in columns"
-				:key="item.prop + index"
-				show-overflow-tooltip
-				:prop="item.prop"
-				:label="item.label"
-				:min-width="item.minWidth"
-				:width="item.width"
-				align="center"
-			>
-			</el-table-column>
+			<template v-for="(item, index) in columns">
+				<el-table-column
+					:key="item.prop + index"
+					show-overflow-tooltip
+					:prop="item.prop"
+					:label="item.label"
+					:min-width="item.minWidth"
+					:width="item.width"
+					align="center"
+					v-if="item.slot"
+				>
+					<template slot-scope="scope">
+						<slot :name="item.prop" :scope="{ ...scope.row }"> </slot>
+					</template>
+				</el-table-column>
+				<el-table-column
+					:key="item.prop + index"
+					show-overflow-tooltip
+					:prop="item.prop"
+					:label="item.label"
+					:min-width="item.minWidth"
+					:width="item.width"
+					align="center"
+					v-else
+				>
+				</el-table-column>
+			</template>
 		</el-table>
 		<div class="pua-pagination">
 			<el-pagination
@@ -41,7 +57,7 @@
 <script>
 export default {
 	props: {
-		loading:Boolean,
+		loading: Boolean,
 		data: {
 			type: Array,
 			required: true,
@@ -81,7 +97,7 @@ export default {
 }
 ::v-deep .pua-table-header {
 	background-color: rgb(214, 214, 214) !important;
-	color:rgb(112, 112, 112);
+	color: rgb(112, 112, 112);
 }
 ::v-deep .pua-pagination {
 	display: flex;
