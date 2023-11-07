@@ -1,5 +1,12 @@
 <template>
-	<div class="pua-dict">
+	<el-dialog
+		:title="title"
+		:visible.sync="visible"
+		:width="width"
+		:close-on-click-modal="false"
+		:destroy-on-close="true"
+		ref="dictDialog"
+	>
 		<!-- 筛选条件 -->
 		<el-form
 			size="small"
@@ -7,24 +14,20 @@
 			:model="queryForm"
 			class="pua-dict-form"
 		>
-			<el-form-item label="编码">
-				<el-input
-					v-model="queryForm.code"
-					placeholder="请输入字典组编码..."
-				></el-input>
-			</el-form-item>
 			<el-form-item>
 				<el-button type="primary" @click="add">新增</el-button>
 				<el-button type="danger" @click="del">删除</el-button>
 				<el-button type="warning" @click="edit">编辑</el-button>
-				<el-button type="primary" @click="query">查询</el-button>
+				<el-button type="primary" @click="query"
+					>刷新</el-button
+				>
 			</el-form-item>
 		</el-form>
 
 		<!-- 表格组件 -->
 		<pua-table
 			:columns="columns"
-			:height="clientHeight - 170 + 'px'"
+			height="43vh"
 			:loading="tableLoading"
 			:data="tableData"
 			:start="queryForm.start"
@@ -42,18 +45,47 @@
 			"
 		>
 		</pua-table>
-
-		<!-- 弹窗组件 -->
-		<dict-dialog :visible="dictDialogVisiable" :title="dictDialogTitle"></dict-dialog>
-	</div>
+	</el-dialog>
 </template>
 
 <script>
-import PuaTable from "@/components/PuaTable.vue";
-import DictDialog from "@/components/dict/DictDialog.vue";
 import { queryDicts } from "@/api/index";
+import PuaTable from "../PuaTable.vue";
 export default {
-	components: { PuaTable, DictDialog },
+	components: { PuaTable },
+	props: {
+		title: {
+			type: String,
+			required: true,
+		},
+		visible: {
+			type: Boolean,
+			required: true,
+		},
+		width: {
+			type: [String, Number],
+			required: false,
+			default: "50%",
+		},
+	},
+	watch: {
+		"queryForm.start": {
+			handler(val) {
+				this.queryForm.limit = val;
+				this.query();
+			},
+			deep: true,
+			immediate: true,
+		},
+		"queryForm.limit": {
+			handler(val) {
+				this.queryForm.limit = val;
+				this.query();
+			},
+			deep: true,
+			immediate: true,
+		},
+	},
 	data() {
 		return {
 			queryForm: {
@@ -84,11 +116,6 @@ export default {
 					minWidth: 80,
 				},
 				{
-					prop: "type",
-					label: "类型",
-					minWidth: 120,
-				},
-				{
 					prop: "create_time",
 					label: "创建时间",
 					minWidth: 120,
@@ -103,39 +130,13 @@ export default {
 			tableData: [],
 			total: 0,
 			clientHeight: 0,
-            dictDialogVisiable:true,
-            dictDialogTitle:'字典项维护'
 		};
 	},
-	watch: {
-		"queryForm.start": {
-			handler(val) {
-				this.queryForm.limit = val;
-				this.query();
-			},
-			deep: true,
-			immediate: true,
-		},
-		"queryForm.limit": {
-			handler(val) {
-				this.queryForm.limit = val;
-				this.query();
-			},
-			deep: true,
-			immediate: true,
-		},
-	},
 	mounted() {
-		this.getClientHeight();
 		this.query();
 	},
+
 	methods: {
-		getClientHeight() {
-			this.clientHeight = document.body.clientHeight;
-			window.addEventListener("resize", () => {
-				this.clientHeight = document.body.clientHeight;
-			});
-		},
 		query() {
 			this.tableLoading = true;
 			queryDicts(this.queryForm).then(({ data: res }) => {
@@ -147,13 +148,23 @@ export default {
 		del() {},
 		edit() {},
 		add() {},
-        
 	},
 };
 </script>
 
 <style scoped>
-.pua-dict-form {
-	padding: 0 10px;
+::v-deep .el-dialog__header {
+	background-color: #303f5b;
+	padding: 15px 15px 15px;
+}
+
+::v-deep .el-dialog__body {
+	padding: 10px 15px;
+	height: 50vh;
+}
+
+::v-deep .el-dialog__title,
+::v-deep .el-icon-close:before {
+	color: #fff !important;
 }
 </style>
