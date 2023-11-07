@@ -11,6 +11,7 @@
 			header-cell-class-name="pua-table-header"
 		>
 			<el-table-column type="selection" width="39"></el-table-column>
+			<el-table-column type="index" width="50" label="序号" align="center"></el-table-column>
 			<template v-for="(item, index) in columns">
 				<el-table-column
 					:key="item.prop + index"

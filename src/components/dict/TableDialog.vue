@@ -1,58 +1,77 @@
 <template>
-	<el-dialog
-		:title="title"
-		:visible.sync="visible"
-		:width="width"
-		:close-on-click-modal="false"
-		:destroy-on-close="true"
-		ref="dictDialog"
-	>
-		<!-- 筛选条件 -->
-		<el-form
-			size="small"
-			:inline="true"
-			:model="queryForm"
-			class="pua-dict-form"
+	<div>
+		<el-dialog
+			:title="title"
+			:visible="visible"
+			:width="width"
+			:close-on-click-modal="false"
+			:destroy-on-close="true"
+			ref="dictDialog"
+			@close="closeDialog"
 		>
-			<el-form-item>
-				<el-button type="primary" @click="add">新增</el-button>
-				<el-button type="danger" @click="del">删除</el-button>
-				<el-button type="warning" @click="edit">编辑</el-button>
-				<el-button type="primary" @click="query"
-					>刷新</el-button
-				>
-			</el-form-item>
-		</el-form>
+			<!-- 筛选条件 -->
+			<el-form
+				size="small"
+				:inline="true"
+				:model="queryForm"
+				class="pua-dict-form"
+			>
+				<el-form-item>
+					<el-button type="primary" @click="add" :disabled="!editable"
+						>新增</el-button
+					>
+					<el-button type="danger" @click="del" :disabled="!editable"
+						>删除</el-button
+					>
+					<el-button type="warning" @click="edit" :disabled="!editable"
+						>编辑</el-button
+					>
+					<el-button type="primary" @click="query">刷新</el-button>
+				</el-form-item>
+			</el-form>
 
-		<!-- 表格组件 -->
-		<pua-table
-			:columns="columns"
-			height="43vh"
-			:loading="tableLoading"
-			:data="tableData"
-			:start="queryForm.start"
-			:limit="queryForm.limit"
-			:total="total"
-			@limitChange="
+			<!-- 表格组件 -->
+			<pua-table
+				:columns="columns"
+				height="43vh"
+				:loading="tableLoading"
+				:data="tableData"
+				:start="queryForm.start"
+				:limit="queryForm.limit"
+				:total="total"
+				@limitChange="
+					(val) => {
+						queryForm.limit = val;
+					}
+				"
+				@startChange="
+					(val) => {
+						queryForm.start = val;
+					}
+				"
+			>
+			</pua-table>
+		</el-dialog>
+
+		<form-dialog
+			:visible="formDialog2Visiable"
+			:title="formDialog2Title"
+			formType="02"
+			@update:visiable="
 				(val) => {
-					queryForm.limit = val;
+					formDialog2Visiable = val;
 				}
 			"
-			@startChange="
-				(val) => {
-					queryForm.start = val;
-				}
-			"
-		>
-		</pua-table>
-	</el-dialog>
+		></form-dialog>
+	</div>
 </template>
 
 <script>
 import { queryDicts } from "@/api/index";
 import PuaTable from "../PuaTable.vue";
+import FormDialog from "./FormDialog.vue";
 export default {
-	components: { PuaTable },
+	components: { PuaTable, FormDialog },
 	props: {
 		title: {
 			type: String,
@@ -61,6 +80,11 @@ export default {
 		visible: {
 			type: Boolean,
 			required: true,
+		},
+		editable: {
+			type: Boolean,
+			required: false,
+			default: false,
 		},
 		width: {
 			type: [String, Number],
@@ -90,16 +114,11 @@ export default {
 		return {
 			queryForm: {
 				code: "",
+				type: "02",
 				start: 1,
 				limit: 20,
 			},
 			columns: [
-				{
-					prop: "id",
-					label: "序列",
-					minWidth: 120,
-				},
-
 				{
 					prop: "name",
 					label: "名称",
@@ -129,14 +148,17 @@ export default {
 			tableLoading: false,
 			tableData: [],
 			total: 0,
-			clientHeight: 0,
+			formDialog2Title: "字典项新增",
+			formDialog2Visiable: false,
 		};
 	},
 	mounted() {
 		this.query();
 	},
-
 	methods: {
+		closeDialog() {
+			this.$emit("update:visiable", false);
+		},
 		query() {
 			this.tableLoading = true;
 			queryDicts(this.queryForm).then(({ data: res }) => {
@@ -146,8 +168,13 @@ export default {
 			});
 		},
 		del() {},
-		edit() {},
-		add() {},
+		edit() {
+			this.formDialog2Title = '字典项修改'
+			this.formDialog2Visiable = true;
+		},
+		add() {
+			this.formDialog2Visiable = true;
+		},
 	},
 };
 </script>

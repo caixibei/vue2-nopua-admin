@@ -41,33 +41,55 @@
 				}
 			"
 		>
+			<template slot="operation" slot-scope="{ scope }">
+				<div class="dict-column-operation">
+					<i class="el-icon-view" @click="viewItems"></i>
+					<el-divider direction="vertical"></el-divider>
+					<i class="el-icon-edit" @click="editItems"></i>
+				</div>
+			</template>
 		</pua-table>
 
 		<!-- 弹窗组件 -->
-		<dict-dialog :visible="dictDialogVisiable" :title="dictDialogTitle"></dict-dialog>
+		<dict-dialog
+			:visible="dictDialogVisiable"
+			:title="dictDialogTitle"
+			:editable="editable"
+			@update:visiable="
+				(val) => {
+					dictDialogVisiable = val;
+				}
+			"
+		></dict-dialog>
+		<form-dialog
+			:visible="formDialogVisiable"
+			:title="formDialogTitle"
+            formType="01"
+			@update:visiable="
+				(val) => {
+					formDialogVisiable = val;
+				}
+			"
+		></form-dialog>
 	</div>
 </template>
 
 <script>
 import PuaTable from "@/components/PuaTable.vue";
-import DictDialog from "@/components/dict/DictDialog.vue";
+import DictDialog from "@/components/dict/TableDialog.vue";
+import FormDialog from "@/components/dict/FormDialog.vue";
 import { queryDicts } from "@/api/index";
 export default {
-	components: { PuaTable, DictDialog },
+	components: { PuaTable, DictDialog,FormDialog },
 	data() {
 		return {
 			queryForm: {
 				code: "",
+				type: "01",
 				start: 1,
 				limit: 20,
 			},
 			columns: [
-				{
-					prop: "id",
-					label: "序列",
-					minWidth: 120,
-				},
-
 				{
 					prop: "name",
 					label: "名称",
@@ -98,13 +120,22 @@ export default {
 					label: "变更时间",
 					minWidth: 120,
 				},
+				{
+					prop: "operation",
+					label: "操作",
+					minWidth: 60,
+					slot: true,
+				},
 			],
 			tableLoading: false,
 			tableData: [],
 			total: 0,
 			clientHeight: 0,
-            dictDialogVisiable:true,
-            dictDialogTitle:'字典项维护'
+			dictDialogVisiable: false,
+			dictDialogTitle: "字典项维护",
+			editable: false,
+            formDialogVisiable:false,
+            formDialogTitle:'字典组新增',
 		};
 	},
 	watch: {
@@ -144,10 +175,27 @@ export default {
 				this.tableLoading = false;
 			});
 		},
-		del() {},
-		edit() {},
-		add() {},
-        
+		del() {
+
+        },
+		edit() {
+            this.formDialogTitle = '字典组修改'
+            this.formDialogVisiable = true
+        },
+		add() {
+            this.formDialogTitle = '字典组新增'
+            this.formDialogVisiable = true
+        },
+		editItems() {
+			this.editable = true;
+			this.dictDialogTitle = "字典项维护";
+			this.dictDialogVisiable = true;
+		},
+		viewItems() {
+			this.dictDialogTitle = "字典项查看";
+			this.editable = false;
+			this.dictDialogVisiable = true;
+		},
 	},
 };
 </script>
@@ -155,5 +203,22 @@ export default {
 <style scoped>
 .pua-dict-form {
 	padding: 0 10px;
+}
+.dict-column-operation {
+	display: flex;
+	gap: 3px;
+	justify-content: center;
+}
+
+.dict-column-operation i:hover {
+	color: #409eff !important;
+	cursor: pointer;
+}
+
+.dict-column-operation > i:nth-of-type(3) {
+	color: #f78787;
+}
+.dict-column-operation > i:nth-of-type(2) {
+	color: #e6a23c;
 }
 </style>

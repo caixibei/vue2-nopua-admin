@@ -92,11 +92,6 @@ export default {
 			tableData: [],
 			columns: [
 				{
-					prop: "id",
-					label: "序列",
-					minWidth: 240,
-				},
-				{
 					prop: "username",
 					label: "姓名",
 					minWidth: 120,
