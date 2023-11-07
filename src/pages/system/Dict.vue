@@ -27,7 +27,7 @@
 			:total="total"
 			@limitChange="
 				(val) => {
-					queryForm.start = val;
+					queryForm.limit = val;
 				}
 			"
 			@startChange="
