@@ -1,15 +1,22 @@
 <template>
 	<div id="user">
-		<el-form :inline="true" :model="queryForm" class="pua-user-form">
-			<el-form-item label="姓名" size="small">
+		<el-form
+			:inline="true"
+			size="small"
+			:model="queryForm"
+			class="pua-user-form"
+		>
+			<el-form-item label="姓名">
 				<el-input
 					v-model="queryForm.username"
-					size="small"
 					placeholder="请输入姓名..."
 				></el-input>
 			</el-form-item>
-			<el-form-item size="small">
-				<el-button type="primary" size="small" @click="query">查询</el-button>
+			<el-form-item>
+				<el-button type="primary" @click="add">新增</el-button>
+				<el-button type="danger" @click="del">删除</el-button>
+				<el-button type="warning" @click="edit">编辑</el-button>
+				<el-button type="primary" @click="query">查询</el-button>
 			</el-form-item>
 		</el-form>
 		<pua-table
@@ -86,7 +93,7 @@ export default {
 			columns: [
 				{
 					prop: "id",
-					label: "编码",
+					label: "序列",
 					minWidth: 240,
 				},
 				{

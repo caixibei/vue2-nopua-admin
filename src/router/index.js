@@ -33,6 +33,14 @@ const routes = [
 				title: '用户管理',
 				roles: ['']
 			}
+		},{
+			path: '/system/dict',
+			component: () => import('@/pages/system/Dict.vue'),
+			name: 'dict',
+			meta: {
+				title: '字典管理',
+				roles: ['']
+			}
 		}]
 	},
 	{

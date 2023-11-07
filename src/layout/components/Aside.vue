@@ -36,7 +36,7 @@
 							><i class="el-icon-menu"></i>系统管理</template
 						>
 						<el-menu-item index="2-1">菜单配置</el-menu-item>
-						<el-menu-item index="2-2">字典管理</el-menu-item>
+						<el-menu-item index="/system/dict">字典管理</el-menu-item>
 						<el-menu-item index="/system/user">用户管理</el-menu-item>
 					</el-submenu>
 					<el-submenu index="3">

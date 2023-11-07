@@ -10,6 +10,7 @@
 			size="small"
 			header-cell-class-name="pua-table-header"
 		>
+			<el-table-column type="selection" width="39"></el-table-column>
 			<template v-for="(item, index) in columns">
 				<el-table-column
 					:key="item.prop + index"
