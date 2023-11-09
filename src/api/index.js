@@ -21,3 +21,13 @@ export function queryDicts(data){
         data:data
     })
 }
+
+/** 保存数据字典 */
+export function insertSingleDict(data){
+    const url = '/hub_dict/insertSingleDict'
+    return request({
+        method:'post',
+        url:url,
+        data:data
+    })
+}

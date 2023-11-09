@@ -15,7 +15,7 @@ const interval = null;
 export default {
 	data() {
 		return {
-			second: 5,
+			second: 3,
 			clientHeght: 0,
 			interval,
 		};

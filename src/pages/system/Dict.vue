@@ -43,9 +43,13 @@
 		>
 			<template slot="operation" slot-scope="{ scope }">
 				<div class="dict-column-operation">
-					<i class="el-icon-view" @click="viewItems"></i>
+					<i class="el-icon-view" @click="viewItems">
+						<span>详细</span>
+					</i>
 					<el-divider direction="vertical"></el-divider>
-					<i class="el-icon-edit" @click="editItems"></i>
+					<i class="el-icon-edit" @click="editItems">
+						<span>维护</span>
+					</i>
 				</div>
 			</template>
 		</pua-table>
@@ -213,6 +217,10 @@ export default {
 .dict-column-operation i:hover {
 	color: #409eff !important;
 	cursor: pointer;
+}
+
+.dict-column-operation i span{
+	padding:3px;
 }
 
 .dict-column-operation > i:nth-of-type(3) {
